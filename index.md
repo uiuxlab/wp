@@ -45,3 +45,57 @@ $cat_args=array(
 	<!-- your content here -->
 <?php endwhile;?>
 ```
+
+### Show post views in wordpress
+
+```markdown
+<!-- Past code in functions.php file -->
+
+function rm_post_view_count(){
+	if ( is_single() ){
+		global $post;
+		$count_post = esc_attr( get_post_meta( $post->ID, '_post_views_count', true) );
+		if( $count_post == ''){
+			$count_post = 0;
+			add_post_meta( $post->ID, '_post_views_count', $count_post);
+		}else{
+			$count_post = (int)$count_post + 0;
+			update_post_meta( $post->ID, '_post_views_count', $count_post);
+		}
+	}
+}
+add_action('wp_head', 'rm_post_view_count');
+
+
+<!-- Past code in single.php file -->
+
+<?php 
+
+if ( is_single() ){
+		global $post;
+		$count_post = esc_attr( get_post_meta( $post->ID, '_post_views_count', true) );
+		if( $count_post == ''){
+			$count_post = 1;
+			add_post_meta( $post->ID, '_post_views_count', $count_post);
+		}else{
+			$count_post = (int)$count_post + 1;
+			update_post_meta( $post->ID, '_post_views_count', $count_post);
+		}
+	}
+
+	?>
+
+
+<!-- Past code in post.php file -->
+
+<?php
+		global $post;
+		$visitor_count = get_post_meta( $post->ID, '_post_views_count', true);
+		if( $visitor_count == '' ){ $visitor_count = 0; }
+		if( $visitor_count >= 1000 ){
+			$visitor_count = round( ($visitor_count/1000), 1 );
+			$visitor_count = $visitor_count.'k';
+		}
+	echo esc_attr($visitor_count);
+?>	
+```
