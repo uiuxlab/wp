@@ -116,3 +116,9 @@ if ( is_single() ){
 		</div>
 </article>
 ```
+
+### Wordpress hide admin bar
+
+```markdown
+add_filter('show_admin_bar', '__return_false');
+```
