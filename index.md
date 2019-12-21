@@ -4,20 +4,30 @@
 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/iphone.png">
 ```
 
-### Wordpress code for assets url
+### Show wordpress all categories in loop
 
 ```markdown
-<img src="<?php echo get_template_directory_uri(); ?>/assets/images/iphone.png">
-```
+<?php
+$cat_args=array(
+	'orderby' => 'name',
+	'order' => 'ASC'
+	);
+	$categories=get_categories($cat_args);
+	foreach($categories as $category) { 
+		$args=array(
+			'category__in' => array($category->term_id),
+			'caller_get_posts'=>1
+			);
+			$posts=get_posts($args);
+			if ($posts) {
 
-### Wordpress code for assets url
+				echo '<div class="swiper-slide"><a href="' . get_category_link( $category->term_id ) . '" title="' . sprintf( __( "View all posts in %s" ), $category->name ) . '" ' . '>' . $category->name.'</a> </div> ';
 
-```markdown
-<img src="<?php echo get_template_directory_uri(); ?>/assets/images/iphone.png">
-```
-
-### Wordpress code for assets url
-
-```markdown
-<img src="<?php echo get_template_directory_uri(); ?>/assets/images/iphone.png">
+				foreach($posts as $post) {
+					setup_postdata($post); ?>
+					<?php
+				} 
+			} 
+		}
+		?>
 ```
