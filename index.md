@@ -31,3 +31,17 @@ $cat_args=array(
 		}
 		?>
 ```
+
+### Wordpress post loop
+
+```markdown
+<?php 
+	query_posts(array( 
+	'post_type' => 'post',
+	'showposts' => 1 
+	) );  
+	?>
+	<?php while (have_posts()) : the_post(); ?>				
+	<!-- your content here -->
+<?php endwhile;?>
+```
