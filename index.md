@@ -99,3 +99,20 @@ if ( is_single() ){
 	echo esc_attr($visitor_count);
 ?>	
 ```
+
+### Wordpress simple post basic codes
+
+```markdown
+<article class="post">
+		<div class="col-md-4">
+			<div class="post-img" style="background: url('<?php echo get_the_post_thumbnail_url(); ?>');"></div>
+			<a href="<?php echo get_permalink(); ?>" class="post-overlay">
+				<img class="play-icon" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/play.svg">
+			</a>
+			<div class="entry-content">
+					<?php the_content(); ?>
+				<a href="<?php echo get_permalink(); ?>"><h3 class="entry-title"><?php the_title(); ?></h3></a>
+			</div>
+		</div>
+</article>
+```
